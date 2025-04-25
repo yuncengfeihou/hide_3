@@ -307,17 +307,16 @@ function createPopup() {
         <div class="hide-helper-popup-title">隐藏助手设置</div>
         <div class="hide-helper-input-row">
             <button id="hide-save-settings-btn" class="hide-helper-btn">保存设置</button>
-            <input type="number" id="hide-last-n" min="0" placeholder="隐藏最近N楼之前的消息">
+            <div class="hide-helper-input-container">
+                <input type="number" id="hide-last-n" min="0" placeholder="隐藏最近N楼之前的消息">
+            </div>
             <button id="hide-unhide-all-btn" class="hide-helper-btn">取消隐藏</button>
         </div>
         <div class="hide-helper-current">
             <strong>当前隐藏设置:</strong> <span id="hide-current-value">无</span>
         </div>
         <div class="hide-helper-popup-footer">
-            <select id="hide-settings-type" class="hide-helper-select">
-                <option value="chat">聊天</option>
-                <option value="global">全局</option>
-            </select>
+            <button id="hide-settings-type-btn" class="hide-helper-btn">聊天模式</button>
             <button id="hide-helper-popup-close" class="hide-helper-close-btn">关闭</button>
             <button id="hide-helper-instructions-btn" class="hide-helper-btn">使用说明</button>
         </div>
