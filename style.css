@@ -73,6 +73,8 @@
     transition: background-color 0.2s ease;
     height: 35px;
     box-sizing: border-box;
+    white-space: nowrap;
+    min-width: 80px;
 }
 
 .hide-helper-btn:hover {
@@ -102,6 +104,8 @@
     height: 35px;
     box-sizing: border-box;
     margin: 0;
+    white-space: nowrap;
+    min-width: 80px;
 }
 
 .hide-helper-close-btn:hover {
@@ -124,6 +128,7 @@
     font-size: 13px;
     height: 35px;
     box-sizing: border-box;
+    min-width: 80px;
 }
 
 /* 输入行容器 */
