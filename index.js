@@ -30,19 +30,16 @@ const domCache = {
     hideLastNInput: null,
     saveBtn: null,
     currentValueDisplay: null,
-    settingsTypeSelect: null, // 添加选择类型下拉框的缓存引用
     // 初始化缓存
     init() {
         console.debug(`[${extensionName} DEBUG] Initializing DOM cache.`);
         this.hideLastNInput = document.getElementById('hide-last-n');
         this.saveBtn = document.getElementById('hide-save-settings-btn');
         this.currentValueDisplay = document.getElementById('hide-current-value');
-        this.settingsTypeSelect = document.getElementById('hide-settings-type'); // 初始化时缓存下拉框
         console.debug(`[${extensionName} DEBUG] DOM cache initialized:`, {
             hideLastNInput: !!this.hideLastNInput,
             saveBtn: !!this.saveBtn,
-            currentValueDisplay: !!this.currentValueDisplay,
-            settingsTypeSelect: !!this.settingsTypeSelect
+            currentValueDisplay: !!this.currentValueDisplay
         });
     }
 };
@@ -421,12 +418,13 @@ function updateCurrentHideSettingsDisplay() {
     }
     
     // 更新设置类型选择框
-    if (domCache.settingsTypeSelect) {
+    const $typeBtn = $('#hide-settings-type-btn');
+    if ($typeBtn.length) {
         const useGlobal = extension_settings[extensionName]?.useGlobalSettings || false;
-        console.debug(`[${extensionName} DEBUG] updateCurrentHideSettingsDisplay: Setting settings type select to: "${useGlobal ? 'global' : 'chat'}"`);
-        domCache.settingsTypeSelect.value = useGlobal ? 'global' : 'chat';
+        console.debug(`[${extensionName} DEBUG] updateCurrentHideSettingsDisplay: Setting type button text to: "${useGlobal ? '全局模式' : '聊天模式'}"`);
+        $typeBtn.text(useGlobal ? '全局模式' : '聊天模式');
     } else {
-        console.debug(`[${extensionName} DEBUG] updateCurrentHideSettingsDisplay: settingsTypeSelect element not in cache.`);
+        console.debug(`[${extensionName} DEBUG] updateCurrentHideSettingsDisplay: Type button element not found.`);
     }
     
     console.debug(`[${extensionName} DEBUG] Exiting updateCurrentHideSettingsDisplay.`);
@@ -800,9 +798,11 @@ function setupEventListeners() {
 
     // 添加设置类型切换事件
     console.log(`[${extensionName}] Setting up change listener for #hide-settings-type.`);
-    $('#hide-settings-type').on('change', function() {
-        const useGlobalSettings = $(this).val() === 'global';
-        console.log(`[${extensionName}] Settings type toggle changed. New state: ${useGlobalSettings ? 'global' : 'chat'}`);
+    $('#hide-settings-type-btn').on('click', function() {
+        const $btn = $(this);
+        // 检查当前模式并切换
+        const currentMode = extension_settings[extensionName]?.useGlobalSettings;
+        const newMode = !currentMode;
         
         if (extension_settings[extensionName]) {
             // 如果之前未定义，确保初始化全局设置
@@ -810,17 +810,19 @@ function setupEventListeners() {
                 extension_settings[extensionName].globalHideSettings = { ...defaultSettings.globalHideSettings };
             }
             
-            const oldValue = extension_settings[extensionName].useGlobalSettings;
-            extension_settings[extensionName].useGlobalSettings = useGlobalSettings;
+            extension_settings[extensionName].useGlobalSettings = newMode;
             
-            console.log(`[${extensionName}] Settings type changed from ${oldValue ? 'global' : 'chat'} to ${useGlobalSettings ? 'global' : 'chat'}`);
+            console.log(`[${extensionName}] Settings type changed from ${currentMode ? 'global' : 'chat'} to ${newMode ? 'global' : 'chat'}`);
             saveSettingsDebounced();
+            
+            // 更新按钮文本
+            $btn.text(newMode ? '全局模式' : '聊天模式');
             
             // 更新显示并运行检查
             updateCurrentHideSettingsDisplay();
             runFullHideCheckDebounced();
             
-            toastr.info(`已切换到${useGlobalSettings ? '全局' : '聊天'}设置模式`);
+            toastr.info(`已切换到${newMode ? '全局' : '聊天'}设置模式`);
         }
     });
 
