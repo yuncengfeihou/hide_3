@@ -991,7 +991,7 @@ jQuery(async () => {
         
         // 设置初始设置类型下拉框状态
         console.log(`[${extensionName}] 初始设置: 设置设置类型下拉框显示。`); // 中文日志
-        $('#hide-settings-type').val(extension_settings[extensionName]?.useGlobalSettings ? 'global' : 'chat');
+        $('#hide-settings-type-btn').text(extension_settings[extensionName]?.useGlobalSettings ? '全局模式' : '聊天模式');
 
         console.log(`[${extensionName}] 初始设置: 更新当前隐藏设置显示。`); // 中文日志
         updateCurrentHideSettingsDisplay();
