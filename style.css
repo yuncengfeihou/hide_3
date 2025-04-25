@@ -46,9 +46,15 @@
     font-size: 13px;
 }
 
+/* 输入框容器 */
+.hide-helper-input-container {
+    flex: 1;
+    min-width: 50px;
+}
+
 /* 输入框样式 */
 #hide-last-n {
-    flex: 0 1 150px;
+    width: 100%;
     padding: 6px 12px;
     margin: 0;
     border-radius: 4px;
@@ -75,6 +81,7 @@
     box-sizing: border-box;
     white-space: nowrap;
     min-width: 80px;
+    flex-shrink: 0;
 }
 
 .hide-helper-btn:hover {
@@ -106,6 +113,7 @@
     margin: 0;
     white-space: nowrap;
     min-width: 80px;
+    flex-shrink: 0;
 }
 
 .hide-helper-close-btn:hover {
@@ -118,7 +126,7 @@
     align-items: center;
 }
 
-/* 设置类型下拉选择框 */
+/* 设置类型下拉选择框 - 保留供参考 */
 .hide-helper-select {
     padding: 6px 10px;
     border-radius: 4px;
