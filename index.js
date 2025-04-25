@@ -314,14 +314,12 @@ function createPopup() {
             <strong>当前隐藏设置:</strong> <span id="hide-current-value">无</span>
         </div>
         <div class="hide-helper-popup-footer">
-            <div class="hide-helper-settings-type">
-                <span class="hide-helper-label">设置类型:</span>
-                <select id="hide-settings-type" class="hide-helper-select">
-                    <option value="chat">聊天</option>
-                    <option value="global">全局</option>
-                </select>
-            </div>
+            <select id="hide-settings-type" class="hide-helper-select">
+                <option value="chat">聊天</option>
+                <option value="global">全局</option>
+            </select>
             <button id="hide-helper-popup-close" class="hide-helper-close-btn">关闭</button>
+            <button id="hide-helper-instructions-btn" class="hide-helper-btn">使用说明</button>
         </div>
     </div>`;
     console.log(`[${extensionName}] Appending popup HTML to body.`);
